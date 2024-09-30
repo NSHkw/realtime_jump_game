@@ -1,6 +1,5 @@
 ```
 realtime_jump_game
-├─ .gitignore
 ├─ .prettierrc
 ├─ assets
 │  ├─ item.json
@@ -11,7 +10,6 @@ realtime_jump_game
 ├─ public
 │  ├─ .DS_Store
 │  ├─ .idea
-│  │  ├─ .gitignore
 │  │  ├─ misc.xml
 │  │  ├─ modules.xml
 │  │  ├─ public.iml
