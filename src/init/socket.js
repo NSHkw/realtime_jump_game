@@ -1,4 +1,3 @@
-// src/init/socket.js
 import { Server as socket } from 'socket.io';
 import userRegisterHandler from '../handlers/userRegister.handler';
 

@@ -1,4 +1,3 @@
-// src/init/assets.js
 import path from 'path';
 import { fileURLToPath } from 'url';
 

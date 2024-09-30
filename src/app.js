@@ -1,4 +1,3 @@
-// src/app.js
 import express, { urlencoded } from 'express';
 import { createServer } from 'http';
 import { initSocket } from './init/socket.js';

@@ -1,4 +1,3 @@
-// src/handlers/userRegister.handler.js
 import { v4 as uuidv4 } from 'uuid';
 import { addUser } from '../models/user.model.js';
 import { handleConnect, handleDisconnect } from './helper.js';
@@ -6,7 +5,6 @@ import { handleConnect, handleDisconnect } from './helper.js';
 const userRegisterHandler = (io) => {
   io.on('connection', (socket) => {
     // 서버 메모리에 유저를 추가하기
-    // connection 이벤트 발생 시, 바로 유저 배열에 유저를 추가({uuid, socketid}) 객체 형태
     const userUUId = uuidv4();
     addUser({ uuid: userUUId, socketId: socket.id });
 
