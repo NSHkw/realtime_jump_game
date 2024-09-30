@@ -1,6 +1,6 @@
-
 ```
-realtime_game
+realtime_jump_game
+├─ .gitignore
 ├─ .prettierrc
 ├─ assets
 │  ├─ item.json
@@ -11,6 +11,7 @@ realtime_game
 ├─ public
 │  ├─ .DS_Store
 │  ├─ .idea
+│  │  ├─ .gitignore
 │  │  ├─ misc.xml
 │  │  ├─ modules.xml
 │  │  ├─ public.iml
@@ -43,10 +44,12 @@ realtime_game
 │  ├─ Player.js
 │  ├─ Score.js
 │  └─ style.css
+├─ README.md
 └─ src
    ├─ app.js
    ├─ handlers
    ├─ init
+   │  └─ socket.js
    └─ models
 
 ```
