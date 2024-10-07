@@ -1,6 +1,6 @@
 import { gameEnd, gameStart } from './game.handler.js';
 import { eatItemHandler } from './item.handler.js';
-import userRegisterHandler from './userRegister.handler.js';
+import { userRegisterHandler } from './userRegister.handler.js';
 
 const handlerMapping = {
   11: userRegisterHandler,
