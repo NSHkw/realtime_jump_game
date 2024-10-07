@@ -1,13 +1,17 @@
 const stages = {};
 
-export const createStage = (uuid) => {
-  stages[uuid] = [];
+export const getStages = (userId) => {
+  return stages[userId];
 };
 
-export const getStage = (uuid) => {
-  return stages[uuid];
+export const setStage = (userId, stageId, timestamp) => {
+  stages[userId].push({ stageId, timestamp });
 };
 
-export const setStage = (uuid, stageId) => {
-  return stages[uuid].push(stageId);
+export const clearStage = (userId) => {
+  return (stages[userId] = []);
+};
+
+export const createStage = (userId) => {
+  stages[userId] = [];
 };

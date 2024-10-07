@@ -3,7 +3,11 @@ import Ground from './Ground.js';
 import CactiController from './CactiController.js';
 import Score from './Score.js';
 import ItemController from './ItemController.js';
-import './socket.js';
+import { sendEvent } from './Socket.js';
+import './Socket.js';
+import itemData from '../assets/item.json' with { type: 'json' };
+import stageData from '../assets/stage.json' with { type: 'json' };
+import itemUnlockData from '../assets/item_unlock.json' with { type: 'json' };
 
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
@@ -35,12 +39,7 @@ const CACTI_CONFIG = [
 ];
 
 // 아이템
-const ITEM_CONFIG = [
-  { width: 50 / 1.5, height: 50 / 1.5, id: 1, image: 'images/items/pokeball_red.png' },
-  { width: 50 / 1.5, height: 50 / 1.5, id: 2, image: 'images/items/pokeball_yellow.png' },
-  { width: 50 / 1.5, height: 50 / 1.5, id: 3, image: 'images/items/pokeball_purple.png' },
-  { width: 50 / 1.5, height: 50 / 1.5, id: 4, image: 'images/items/pokeball_cyan.png' },
-];
+const ITEM_CONFIG = itemData.data;
 
 // 게임 요소들
 let player = null;
@@ -55,6 +54,9 @@ let gameSpeed = GAME_SPEED_START;
 let gameover = false;
 let hasAddedEventListenersForRestart = false;
 let waitingToStart = true;
+
+const ITEM_UNLOCK_CONFIG = itemUnlockData.data;
+const STAGE_CONFIG = stageData.data;
 
 function createSprites() {
   // 비율에 맞는 크기
@@ -102,9 +104,15 @@ function createSprites() {
     };
   });
 
-  itemController = new ItemController(ctx, itemImages, scaleRatio, GROUND_SPEED);
+  itemController = new ItemController(
+    ctx,
+    itemImages,
+    scaleRatio,
+    GROUND_SPEED,
+    ITEM_UNLOCK_CONFIG,
+  );
 
-  score = new Score(ctx, scaleRatio);
+  score = new Score(ctx, scaleRatio, ITEM_CONFIG, itemController, STAGE_CONFIG);
 }
 
 function getScaleRatio() {
@@ -164,6 +172,7 @@ function reset() {
   cactiController.reset();
   score.reset();
   gameSpeed = GAME_SPEED_START;
+  sendEvent(2, { timeStamp: Date.now() });
 }
 
 function setupGameReset() {

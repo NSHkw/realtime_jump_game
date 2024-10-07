@@ -1,22 +1,39 @@
-import { getGameAssets } from '../init/assets.js';
-import { setStage } from '../models/stage.model.js';
+import { createStage } from '../models/stage.model.js';
 import { getUsers, removeUser } from '../models/user.model.js';
+import { CLIENT_VERSION } from '../constants.js';
+import handlerMapping from './handlerMapping.js';
 
-// 유저가 연결 종료
-export const handleDisconnect = (uuid, socket) => {
-  removeUser(socket.id);
-  console.log(`User disconnected ${socket.id}`);
+export const handleConnection = (socket, userId) => {
+  console.log(`새 유저 연결 ${userId}, 소켓 ${socket.id}`);
+  console.log('현재 유저', getUsers());
+
+  createStage(userId);
+  socket.emit('connection', { userId: userId });
 };
 
-// 유저 new 커넥팅
-export const handleConnect = (userUUId, socket) => {
-  console.log(`New user connected: ${userUUID} with socket ID ${socket.id}`);
-  console.log('Current users:', getUsers());
+export const handleDisconnect = (socket) => {
+  removeUser(socket.id);
+  console.log('유저 연결 해제', socket.id);
+  console.log('현재 유저', getUsers());
+};
 
-  const { stages } = getGameAssets();
+export const handleEvent = (io, socket, data) => {
+  if (!CLIENT_VERSION.includes(data.clientVersion)) {
+    socket.emit('response', { status: 'fail', message: '버전 mismatch' });
+    return;
+  }
 
-  setStage(userUUId, stages.data[0].id);
-  console.log(`stage: ${getStage(userUUId)}`);
+  const handler = handlerMapping[data.handlerId];
+  if (!handler) {
+    socket.emit('response', { status: 'fail', message: '핸들러 정보 없음' });
+    return;
+  }
 
-  socket.emit('connection', { uuid: userUUId });
+  const response = handler(data.userId, data.payload);
+  if (response.broadcast) {
+    io.emit('response', response);
+    return;
+  }
+
+  socket.emit('response', response);
 };
