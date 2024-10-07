@@ -10,6 +10,6 @@ export const userRegisterHandler = (io) => {
     handleConnection(userId, socket);
 
     socket.on('event', (data) => handleEvent(io, socket, data));
-    socket.on('connection', () => handleDisconnect(socket));
+    socket.on('disconnect', () => handleDisconnect(socket));
   });
 };
