@@ -1,6 +1,7 @@
+필수 기능만 겨우 구현한 정도
+
 ```
 realtime_jump_game
-├─ .prettierrc
 ├─ assets
 │  ├─ item.json
 │  ├─ item_unlock.json
@@ -12,10 +13,10 @@ realtime_jump_game
 │  ├─ .idea
 │  │  ├─ misc.xml
 │  │  ├─ modules.xml
-│  │  ├─ public.iml
-│  │  └─ workspace.xml
+│  │  └─ public.iml
 │  ├─ CactiController.js
 │  ├─ Cactus.js
+│  ├─ Constants.js
 │  ├─ Ground.js
 │  ├─ images
 │  │  ├─ cactus_1.png
@@ -41,13 +42,31 @@ realtime_jump_game
 │  ├─ ItemController.js
 │  ├─ Player.js
 │  ├─ Score.js
+│  ├─ Socket.js
 │  └─ style.css
 ├─ README.md
 └─ src
    ├─ app.js
+   ├─ constants.js
    ├─ handlers
+   │  ├─ .md
+   │  ├─ game.handler.js
+   │  ├─ handlerMapping.js
+   │  ├─ helper.js
+   │  ├─ item.handler.js
+   │  ├─ stage.handler.js
+   │  └─ userRegister.handler.js
    ├─ init
+   │  ├─ .md
+   │  ├─ assets.js
    │  └─ socket.js
-   └─ models
+   ├─ models
+   │  ├─ .md
+   │  ├─ item.model.js
+   │  ├─ stage.model.js
+   │  └─ user.model.js
+   └─ utils
+      ├─ calcItemScore.js
+      └─ calcStageScore.js
 
 ```
