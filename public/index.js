@@ -5,9 +5,9 @@ import Score from './Score.js';
 import ItemController from './ItemController.js';
 import { sendEvent } from './Socket.js';
 import './Socket.js';
-import itemData from '../assets/item.json' with { type: 'json' };
-import stageData from '../assets/stage.json' with { type: 'json' };
-import itemUnlockData from '../assets/item_unlock.json' with { type: 'json' };
+import itemData from './assets/item.json' with { type: 'json' };
+import stageData from './assets/stage.json' with { type: 'json' };
+import itemUnlockData from './assets/item_unlock.json' with { type: 'json' };
 
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
