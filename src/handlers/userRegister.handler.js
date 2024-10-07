@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid';
 import { addUsers } from '../models/user.model.js';
 import { handleConnection, handleDisconnect, handleEvent } from './helper.js';
 
-export const userRegisterHandler = (io) => {
+const userRegisterHandler = (io) => {
   io.on('connection', (socket) => {
     const userId = uuid();
 
@@ -13,3 +13,5 @@ export const userRegisterHandler = (io) => {
     socket.on('disconnect', () => handleDisconnect(socket));
   });
 };
+
+export default userRegisterHandler;
