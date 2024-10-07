@@ -7,7 +7,7 @@ const userRegisterHandler = (io) => {
     const userId = uuid();
 
     addUsers({ userId: userId, socketId: socket.id });
-    handleConnection(userId, socket);
+    handleConnection(socket, userId);
 
     socket.on('event', (data) => handleEvent(io, socket, data));
     socket.on('disconnect', () => handleDisconnect(socket));

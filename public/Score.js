@@ -19,18 +19,16 @@ class Score {
 
   update(deltaTime) {
     let nowStageInfo = this.stageData.find((data) => data.id === this.nowStage);
+    if (!nowStageInfo) {
+      console.warn(`Stage info not found for stage ID: ${this.nowStage}`);
+      nowStageInfo = { scorePerSecond: 0 }; // 안전한 기본값 설정
+    }
     let scorePerSecondInc = nowStageInfo.scorePerSecond;
 
     this.scorePerSecond += deltaTime * 0.001 * scorePerSecondInc;
 
     this.score += this.scorePerSecond;
     this.scorePerSecond -= scorePerSecondInc;
-
-    // 현재 점수가 100점이고이면 moveStageHandler로 스테이지 이동
-    if (Math.floor(this.score) === 100 && this.stageChange) {
-      this.stageChange = false;
-      sendEvent(11, { currentStage: 1000, targetStage: 1001 });
-    }
 
     for (let i = 1; i < this.stageData.length; i++) {
       const nextStage = this.stageData[i];
@@ -43,6 +41,8 @@ class Score {
         if (this.itemController.length > 0) {
           this.itemController.setNextStage(this.nowStage);
         }
+
+        this.stageChanged[this.nowStage.id] = true;
         break;
       }
     }
